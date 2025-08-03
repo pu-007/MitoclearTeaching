@@ -67,48 +67,90 @@
                                 <p><strong>📚 精确定义：</strong>细胞中形状、大小各不相同的染色体各一条组成一个染色体组，包含维持生物基本生命活动所需的全套基因。</p>
                             </div>
                         </div>
+
+                        <div class="concept-item">
+                            <h4>📋 概念总结</h4>
+                            <div class="chromosome-demo">
+                                <img src="assets/总结.jpg" alt="概念总结" class="concept-image">
+                            </div>
+                            <div class="concept-analogy">
+                                <p><strong>🎯 核心要点：</strong>理解这四个概念的区别是掌握有丝分裂的关键，它们在细胞分裂过程中扮演不同角色。</p>
+                            </div>
+                            <div class="concept-definition">
+                                <p><strong>📚 记忆要诀：</strong>染色单体是基础单位，姐妹染色单体成对出现，同源染色体来源不同，染色体组决定物种特征。</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
                 <!-- 概念总结对比 -->
                 <div class="concept-card">
                     <h3>📋 概念总结与对比</h3>
-                    <div class="summary-container">
-                        <img src="assets/总结.jpg" alt="染色体概念总结" class="summary-image">
-                        <div class="summary-text">
-                            <h4>核心概念对比</h4>
-                            <table class="comparison-table">
+                    <div class="detailed-comparison">
+                        <h4>核心概念详细对比表</h4>
+                        <table class="comparison-table">
+                            <thead>
                                 <tr>
                                     <th>概念</th>
-                                    <th>来源</th>
-                                    <th>特点</th>
+                                    <th>定义</th>
+                                    <th>形成时期</th>
+                                    <th>结构特点</th>
+                                    <th>数量关系</th>
                                     <th>生物学意义</th>
                                 </tr>
+                            </thead>
+                            <tbody>
                                 <tr>
-                                    <td>染色单体</td>
-                                    <td>DNA复制前的染色体</td>
-                                    <td>单一DNA分子</td>
-                                    <td>遗传信息的基本载体</td>
+                                    <td><strong>染色单体</strong></td>
+                                    <td>DNA复制前的单条染色体</td>
+                                    <td>G1期及之前</td>
+                                    <td>单一DNA分子螺旋化形成</td>
+                                    <td>与染色体数相等</td>
+                                    <td>遗传信息的基本载体单位</td>
                                 </tr>
                                 <tr>
-                                    <td>姐妹染色单体</td>
-                                    <td>DNA复制后形成</td>
-                                    <td>两条完全相同的染色单体通过着丝粒连接</td>
-                                    <td>确保遗传信息精确传递</td>
+                                    <td><strong>姐妹染色单体</strong></td>
+                                    <td>同一染色体DNA复制后形成的两条相同单体</td>
+                                    <td>S期复制后</td>
+                                    <td>通过着丝粒连接的两条相同DNA分子</td>
+                                    <td>染色体数×2</td>
+                                    <td>确保遗传信息精确复制和分配</td>
                                 </tr>
                                 <tr>
-                                    <td>同源染色体</td>
-                                    <td>一对来自父母的染色体</td>
-                                    <td>形态相似但基因可能有差异</td>
-                                    <td>提供遗传多样性</td>
+                                    <td><strong>同源染色体</strong></td>
+                                    <td>来自父母双方的一对相似染色体</td>
+                                    <td>配子形成时确定</td>
+                                    <td>形态大小相似，基因位点相同但等位基因可能不同</td>
+                                    <td>成对存在，二倍体中每种2条</td>
+                                    <td>提供遗传多样性，是减数分裂的基础</td>
                                 </tr>
                                 <tr>
-                                    <td>染色体组</td>
-                                    <td>生物体特有的染色体集合</td>
-                                    <td>包含维持生命所需的全部基因</td>
-                                    <td>决定物种特性</td>
+                                    <td><strong>染色体组</strong></td>
+                                    <td>维持生物基本生命活动的最小染色体集合</td>
+                                    <td>物种进化过程中形成</td>
+                                    <td>形状大小各异的非同源染色体各一条</td>
+                                    <td>用n表示，二倍体含2个染色体组</td>
+                                    <td>决定物种特征，是倍性分析的基础</td>
                                 </tr>
-                            </table>
+                            </tbody>
+                        </table>
+                        
+                        <div class="comparison-summary">
+                            <h5>🔍 区分要点</h5>
+                            <div class="summary-points">
+                                <div class="point-item">
+                                    <span class="point-title">时间维度：</span>
+                                    <span>染色单体→姐妹染色单体（S期复制）→分离（后期）</span>
+                                </div>
+                                <div class="point-item">
+                                    <span class="point-title">空间关系：</span>
+                                    <span>同源染色体成对分布，姐妹染色单体共享着丝粒</span>
+                                </div>
+                                <div class="point-item">
+                                    <span class="point-title">遗传意义：</span>
+                                    <span>染色体组决定物种，同源染色体提供多样性，姐妹染色单体保证准确性</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -317,16 +359,34 @@
 
                 <!-- 模拟显示区域 -->
                 <div class="simulation-area">
+                    <!-- 播放控制按钮 -->
+                    <div class="top-controls">
+                        <button id="simAutoPlay" class="sim-control-btn play-btn">
+                            <span id="simPlayIcon">▶️</span>
+                            <span id="simPlayText">播放</span>
+                        </button>
+                    </div>
+                    
                     <div class="cell-display">
+                        <!-- 左侧控制按钮 -->
+                        <button id="simPrevStep" class="sim-control-btn side-btn left-btn" title="上一步">
+                            ⏮️
+                        </button>
+                        
                         <div id="cellImage" class="cell-image">
                             <!-- SVG图像将在这里显示 -->
                         </div>
                         
-                        <div class="phase-info">
-                            <h3 id="phaseTitle">前期 (Prophase)</h3>
-                            <div id="phaseDescription" class="phase-description">
-                                <!-- 阶段描述将在这里显示 -->
-                            </div>
+                        <!-- 右侧控制按钮 -->
+                        <button id="simNextStep" class="sim-control-btn side-btn right-btn" title="下一步">
+                            ⏭️
+                        </button>
+                    </div>
+                    
+                    <div class="phase-info">
+                        <h3 id="phaseTitle">前期 (Prophase)</h3>
+                        <div id="phaseDescription" class="phase-description">
+                            <!-- 阶段描述将在这里显示 -->
                         </div>
                     </div>
                 </div>

@@ -90,6 +90,38 @@ function initializeSimulator() {
     // 初始化显示
     updateSimulation();
     updateNavigationButtons();
+    
+    // 添加模拟器控制按钮的事件监听
+    initializeSimulatorControls();
+}
+
+// 初始化模拟器控制按钮
+function initializeSimulatorControls() {
+    const simPrevBtn = document.getElementById('simPrevStep');
+    const simNextBtn = document.getElementById('simNextStep');
+    const simAutoPlayBtn = document.getElementById('simAutoPlay');
+    
+    if (simPrevBtn) {
+        simPrevBtn.addEventListener('click', function() {
+            navigatePhase(-1);
+        });
+    }
+    
+    if (simNextBtn) {
+        simNextBtn.addEventListener('click', function() {
+            navigatePhase(1);
+        });
+    }
+    
+    if (simAutoPlayBtn) {
+        simAutoPlayBtn.addEventListener('click', function() {
+            if (autoPlayInterval) {
+                stopSimAutoPlay();
+            } else {
+                startSimAutoPlay();
+            }
+        });
+    }
 }
 
 // 更新模拟显示
@@ -361,6 +393,48 @@ function stopAutoPlay() {
     if (autoPlayBtn) {
         autoPlayBtn.textContent = '🎬 自动播放';
         autoPlayBtn.classList.remove('playing');
+    }
+}
+
+// 模拟器专用自动播放功能
+function startSimAutoPlay() {
+    const phases = ['prophase', 'metaphase', 'anaphase', 'telophase'];
+    const simAutoPlayBtn = document.getElementById('simAutoPlay');
+    const simPlayIcon = document.getElementById('simPlayIcon');
+    const simPlayText = document.getElementById('simPlayText');
+    const phaseSelect = document.getElementById('phase');
+    
+    if (!simAutoPlayBtn || !phaseSelect) return;
+    
+    simAutoPlayBtn.classList.add('playing');
+    if (simPlayIcon) simPlayIcon.textContent = '⏸️';
+    if (simPlayText) simPlayText.textContent = '暂停';
+    
+    let currentIndex = phases.indexOf(currentPhase);
+    
+    autoPlayInterval = setInterval(() => {
+        currentIndex = (currentIndex + 1) % phases.length;
+        currentPhase = phases[currentIndex];
+        phaseSelect.value = currentPhase;
+        updateSimulation();
+        updateNavigationButtons();
+    }, 3000); // 每3秒切换一次
+}
+
+function stopSimAutoPlay() {
+    const simAutoPlayBtn = document.getElementById('simAutoPlay');
+    const simPlayIcon = document.getElementById('simPlayIcon');
+    const simPlayText = document.getElementById('simPlayText');
+    
+    if (autoPlayInterval) {
+        clearInterval(autoPlayInterval);
+        autoPlayInterval = null;
+    }
+    
+    if (simAutoPlayBtn) {
+        simAutoPlayBtn.classList.remove('playing');
+        if (simPlayIcon) simPlayIcon.textContent = '▶️';
+        if (simPlayText) simPlayText.textContent = '播放';
     }
 }
 
