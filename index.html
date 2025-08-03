@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>有丝分裂互动教学平台</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- 导航栏 -->
+        <nav class="navbar">
+            <div class="nav-brand">
+                <h1>🧬 有丝分裂教学平台</h1>
+            </div>
+            <div class="nav-menu">
+                <button class="nav-btn active" data-section="knowledge">知识教学</button>
+                <button class="nav-btn" data-section="simulator">模型展示</button>
+            </div>
+        </nav>
+
+        <!-- 知识教学部分 -->
+        <section id="knowledge" class="section active">
+            <div class="knowledge-container">
+                <h2 class="section-title">有丝分裂知识详解</h2>
+                
+                <!-- 基本概念 -->
+                <div class="concept-card">
+                    <h3>🎯 核心概念理解</h3>
+                    <div class="concept-grid">
+                        <div class="concept-item">
+                            <h4>🧬 同源染色体</h4>
+                            <div class="chromosome-demo">
+                                <img src="assets/同源染色体.jpg" alt="同源染色体" class="concept-image">
+                            </div>
+                            <div class="concept-analogy">
+                                <p><strong>🎭 生活类比：</strong>就像一双鞋子，左脚鞋和右脚鞋大小相同、款式相似，但细节略有不同（一个来自爸爸，一个来自妈妈）。</p>
+                            </div>
+                            <div class="concept-definition">
+                                <p><strong>📚 精确定义：</strong>形状、大小相似，但来源不同（一条来自父方，一条来自母方）的一对染色体，携带控制相同性状的基因。</p>
+                            </div>
+                        </div>
+                        
+                        <div class="concept-item">
+                            <h4>👯‍♀️ 姐妹染色单体</h4>
+                            <div class="chromosome-demo">
+                                <img src="assets/姐妹染色单体.png" alt="姐妹染色单体" class="concept-image">
+                            </div>
+                            <div class="concept-analogy">
+                                <p><strong>🎭 生活类比：</strong>就像用复印机复印文件，原件和复印件内容完全一样，只是用一个"回形针"（着丝粒）夹在一起。</p>
+                            </div>
+                            <div class="concept-definition">
+                                <p><strong>📚 精确定义：</strong>由同一条染色体经DNA复制产生的两条完全相同的染色单体，通过着丝粒连接在一起。</p>
+                            </div>
+                        </div>
+                        
+                        <div class="concept-item">
+                            <h4>🧰 染色体组</h4>
+                            <div class="chromosome-demo">
+                                <img src="assets/染色体组.jpg" alt="染色体组" class="concept-image">
+                            </div>
+                            <div class="concept-analogy">
+                                <p><strong>🎭 生活类比：</strong>就像一套完整的工具箱，里面有螺丝刀、扳手、锤子等，每种工具都不同但都必不可少。</p>
+                            </div>
+                            <div class="concept-definition">
+                                <p><strong>📚 精确定义：</strong>细胞中形状、大小各不相同的染色体各一条组成一个染色体组，包含维持生物基本生命活动所需的全套基因。</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 概念总结对比 -->
+                <div class="concept-card">
+                    <h3>📋 概念总结与对比</h3>
+                    <div class="summary-container">
+                        <img src="assets/总结.jpg" alt="染色体概念总结" class="summary-image">
+                        <div class="summary-text">
+                            <h4>核心概念对比</h4>
+                            <table class="comparison-table">
+                                <tr>
+                                    <th>概念</th>
+                                    <th>来源</th>
+                                    <th>特点</th>
+                                    <th>生物学意义</th>
+                                </tr>
+                                <tr>
+                                    <td>染色单体</td>
+                                    <td>DNA复制前的染色体</td>
+                                    <td>单一DNA分子</td>
+                                    <td>遗传信息的基本载体</td>
+                                </tr>
+                                <tr>
+                                    <td>姐妹染色单体</td>
+                                    <td>DNA复制后形成</td>
+                                    <td>两条完全相同的染色单体通过着丝粒连接</td>
+                                    <td>确保遗传信息精确传递</td>
+                                </tr>
+                                <tr>
+                                    <td>同源染色体</td>
+                                    <td>一对来自父母的染色体</td>
+                                    <td>形态相似但基因可能有差异</td>
+                                    <td>提供遗传多样性</td>
+                                </tr>
+                                <tr>
+                                    <td>染色体组</td>
+                                    <td>生物体特有的染色体集合</td>
+                                    <td>包含维持生命所需的全部基因</td>
+                                    <td>决定物种特性</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 数量关系解释 -->
+                <div class="concept-card">
+                    <h3>🔢 数量关系详解</h3>
+                    <div class="number-explanation">
+                        <div class="number-item">
+                            <h4>2n=4 的含义</h4>
+                            <div class="number-demo">
+                                <div class="demo-cell">
+                                    <div class="chromosome-pair">
+                                        <div class="chromosome" style="background: #ff6b6b;">
+                                            <span>A</span>
+                                        </div>
+                                        <div class="chromosome" style="background: #ff9999;">
+                                            <span>a</span>
+                                        </div>
+                                    </div>
+                                    <div class="chromosome-pair">
+                                        <div class="chromosome" style="background: #4ecdc4;">
+                                            <span>B</span>
+                                        </div>
+                                        <div class="chromosome" style="background: #7dd3d3;">
+                                            <span>b</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <p><strong>2n=4</strong> 表示二倍体细胞有4条染色体，包含2个染色体组。常见于果蝇等生物。</p>
+                        </div>
+                        
+                        <div class="number-item">
+                            <h4>2n=6 的含义</h4>
+                            <div class="number-demo">
+                                <div class="demo-cell">
+                                    <div class="chromosome-pair">
+                                        <div class="chromosome" style="background: #ff6b6b;"><span>A</span></div>
+                                        <div class="chromosome" style="background: #ff9999;"><span>a</span></div>
+                                    </div>
+                                    <div class="chromosome-pair">
+                                        <div class="chromosome" style="background: #4ecdc4;"><span>B</span></div>
+                                        <div class="chromosome" style="background: #7dd3d3;"><span>b</span></div>
+                                    </div>
+                                    <div class="chromosome-pair">
+                                        <div class="chromosome" style="background: #45b7d1;"><span>C</span></div>
+                                        <div class="chromosome" style="background: #78c5e8;"><span>c</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <p><strong>2n=6</strong> 表示二倍体细胞有6条染色体，包含2个染色体组。常见于豌豆等植物。</p>
+                        </div>
+                        
+                        <div class="number-item">
+                            <h4>3n=6 的含义</h4>
+                            <div class="number-demo">
+                                <div class="demo-cell triploid">
+                                    <div class="chromosome-group">
+                                        <div class="chromosome" style="background: #ff6b6b;"><span>A</span></div>
+                                        <div class="chromosome" style="background: #ff9999;"><span>A</span></div>
+                                        <div class="chromosome" style="background: #ffcccc;"><span>A</span></div>
+                                    </div>
+                                    <div class="chromosome-group">
+                                        <div class="chromosome" style="background: #4ecdc4;"><span>B</span></div>
+                                        <div class="chromosome" style="background: #7dd3d3;"><span>B</span></div>
+                                        <div class="chromosome" style="background: #b3e5e0;"><span>B</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <p><strong>3n=6</strong> 表示三倍体细胞有6条染色体，包含3个染色体组。常见于无籽西瓜等。</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 有丝分裂过程 -->
+                <div class="concept-card">
+                    <h3>🔄 有丝分裂四个时期</h3>
+                    <div class="phases-container">
+                        <div class="phase-item">
+                            <h4>前期 (Prophase)</h4>
+                            <div class="phase-features">
+                                <div class="feature">🧬 染色质螺旋化形成染色体</div>
+                                <div class="feature">💫 核膜和核仁逐渐消失</div>
+                                <div class="feature">🌟 纺锤体开始形成</div>
+                            </div>
+                            <div class="phase-memory">记忆口诀：<strong>"膜仁消失，两体出现"</strong></div>
+                        </div>
+                        
+                        <div class="phase-item">
+                            <h4>中期 (Metaphase)</h4>
+                            <div class="phase-features">
+                                <div class="feature">⚖️ 染色体排列在赤道板上</div>
+                                <div class="feature">🎯 染色体形态最清晰</div>
+                                <div class="feature">🔗 纺锤丝连接着丝粒</div>
+                            </div>
+                            <div class="phase-memory">记忆口诀：<strong>"形定数清，赤道排列"</strong></div>
+                        </div>
+                        
+                        <div class="phase-item">
+                            <h4>后期 (Anaphase)</h4>
+                            <div class="phase-features">
+                                <div class="feature">✂️ 着丝粒分裂</div>
+                                <div class="feature">🏃‍♂️ 姐妹染色单体分离</div>
+                                <div class="feature">📈 染色体数目暂时加倍</div>
+                            </div>
+                            <div class="phase-memory">记忆口诀：<strong>"点裂数增，均分两极"</strong></div>
+                        </div>
+                        
+                        <div class="phase-item">
+                            <h4>末期 (Telophase)</h4>
+                            <div class="phase-features">
+                                <div class="feature">🧬 染色体解螺旋</div>
+                                <div class="feature">🔄 核膜和核仁重新形成</div>
+                                <div class="feature">✂️ 胞质开始分裂</div>
+                            </div>
+                            <div class="phase-memory">记忆口诀：<strong>"两体消失，膜仁重建"</strong></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 数量变化图表 -->
+                <div class="concept-card">
+                    <h3>📊 数量变化规律</h3>
+                    <div class="chart-container">
+                        <canvas id="quantityChart" width="800" height="400"></canvas>
+                    </div>
+                    <div class="chart-legend">
+                        <div class="legend-item">
+                            <div class="legend-color" style="background: #ff6b6b;"></div>
+                            <span>染色体数目</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color" style="background: #4ecdc4;"></div>
+                            <span>DNA含量</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color" style="background: #45b7d1;"></div>
+                            <span>染色单体数</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 模型展示部分 -->
+        <section id="simulator" class="section">
+            <div class="simulator-container">
+                <h2 class="section-title">有丝分裂模拟器</h2>
+                
+                <!-- 控制面板 -->
+                <div class="control-panel">
+                    <div class="control-group">
+                        <label>细胞类型：</label>
+                        <select id="cellType">
+                            <option value="animal">动物细胞</option>
+                            <option value="plant">植物细胞</option>
+                        </select>
+                    </div>
+                    
+                    <div class="control-group">
+                        <label>染色体组成：</label>
+                        <select id="chromosomeType">
+                            <option value="2n=4">2n=4 (二倍体，4条染色体)</option>
+                            <option value="2n=6">2n=6 (二倍体，6条染色体)</option>
+                            <option value="3n=6">3n=6 (三倍体，6条染色体)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="control-group">
+                        <label>分裂时期：</label>
+                        <select id="phase">
+                            <option value="prophase">前期</option>
+                            <option value="metaphase">中期</option>
+                            <option value="anaphase">后期</option>
+                            <option value="telophase">末期</option>
+                        </select>
+                    </div>
+
+                    
+                    <div class="playback-controls">
+                        <button id="prevStep" class="control-btn prev-btn">⏮️ 上一步</button>
+                        <button id="autoPlay" class="auto-play-btn">🎬 自动播放</button>
+                        <button id="nextStep" class="control-btn next-btn">⏭️ 下一步</button>
+                    </div>
+                </div>
+
+                <!-- 数量统计 -->
+                <div class="quantity-stats">
+                    <h4>数量统计</h4>
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <span class="stat-label">染色体数：</span>
+                            <span id="chromosomeCount" class="stat-value">-</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">DNA分子数：</span>
+                            <span id="dnaCount" class="stat-value">-</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">染色单体数：</span>
+                            <span id="chromatidCount" class="stat-value">-</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 模拟显示区域 -->
+                <div class="simulation-area">
+                    <div class="cell-display">
+                        <div id="cellImage" class="cell-image">
+                            <!-- SVG图像将在这里显示 -->
+                        </div>
+                        
+                        <div class="phase-info">
+                            <h3 id="phaseTitle">前期 (Prophase)</h3>
+                            <div id="phaseDescription" class="phase-description">
+                                <!-- 阶段描述将在这里显示 -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

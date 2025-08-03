@@ -1,0 +1,1296 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Noto Sans SC', sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    color: #333;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    background: rgba(255, 255, 255, 0.95);
+    min-height: 100vh;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
+}
+
+/* 导航栏样式 */
+.navbar {
+    background: linear-gradient(135deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4);
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 20px rgba(255, 107, 107, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.navbar::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    animation: shimmer 3s infinite;
+}
+
+@keyframes shimmer {
+    0% { left: -100%; }
+    100% { left: 100%; }
+}
+
+.nav-brand h1 {
+    color: white;
+    font-size: 1.5rem;
+    font-weight: 500;
+}
+
+.nav-menu {
+    display: flex;
+    gap: 1rem;
+}
+
+.nav-btn {
+    background: rgba(255, 255, 255, 0.25);
+    color: white;
+    border: 2px solid rgba(255, 255, 255, 0.4);
+    padding: 0.6rem 2rem;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    font-size: 1rem;
+    font-weight: 500;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    position: relative;
+    z-index: 2;
+}
+
+.nav-btn:hover {
+    background: rgba(255, 255, 255, 0.35);
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 8px 25px rgba(255, 255, 255, 0.2);
+}
+
+.nav-btn.active {
+    background: linear-gradient(135deg, #ffffff, #f0f8ff);
+    color: #ff6b6b;
+    box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
+    transform: translateY(-2px);
+    font-weight: 600;
+}
+
+/* 章节样式 */
+.section {
+    display: none;
+    padding: 2rem;
+    animation: fadeIn 0.5s ease-in;
+}
+
+.section.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.section-title {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* 知识教学样式 */
+.knowledge-container {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.concept-card {
+    background: white;
+    border-radius: 15px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(102, 126, 234, 0.1);
+}
+
+.concept-card h3 {
+    color: #2c3e50;
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* 概念网格 */
+.concept-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+/* 宽屏时的特殊布局 */
+@media (min-width: 1200px) {
+    .concept-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    
+    /* 当有3个项目时，让第三个项目跨越整行 */
+    .concept-grid .concept-item:nth-child(3):last-child {
+        grid-column: 1 / -1;
+        max-width: none;
+    }
+}
+
+.concept-item {
+    background: linear-gradient(135deg, #f8f9ff, #e8f2ff);
+    padding: 1.5rem;
+    border-radius: 12px;
+    border: 2px solid rgba(102, 126, 234, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.concept-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(102, 126, 234, 0.2);
+}
+
+.concept-item h4 {
+    color: #2c3e50;
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+}
+
+/* 染色体演示 */
+.chromosome-demo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    margin: 1.5rem 0;
+    padding: 2rem;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(248, 250, 255, 0.9));
+    border-radius: 15px;
+    border: 2px solid rgba(102, 126, 234, 0.1);
+}
+
+.concept-image {
+    width: 100%;
+    height: 200px;
+    object-fit: contain;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+    background: rgba(255, 255, 255, 0.9);
+}
+
+.concept-image:hover {
+    transform: scale(1.05);
+}
+
+/* 概念总结与对比样式 */
+.summary-container {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    align-items: center;
+    text-align: center;
+}
+
+.summary-image {
+    max-width: 80%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    margin: 0 auto;
+    display: block;
+}
+
+.summary-image:hover {
+    transform: scale(1.02);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+.summary-text {
+    background: linear-gradient(135deg, #f8f9ff, #e8f2ff);
+    padding: 1.5rem;
+    border-radius: 12px;
+    border: 2px solid rgba(102, 126, 234, 0.1);
+    width: 100%;
+}
+
+.summary-text h4 {
+    color: #2c3e50;
+    margin-bottom: 1rem;
+    text-align: center;
+    font-size: 1.3rem;
+}
+
+.comparison-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.comparison-table th, .comparison-table td {
+    padding: 0.8rem;
+    text-align: left;
+    border: 1px solid rgba(102, 126, 234, 0.2);
+}
+
+.comparison-table th {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    font-weight: 500;
+}
+
+.comparison-table tr:nth-child(even) {
+    background-color: rgba(255, 255, 255, 0.7);
+}
+
+.comparison-table tr:nth-child(odd) {
+    background-color: rgba(248, 250, 255, 0.7);
+}
+
+.comparison-table tr:hover {
+    background-color: rgba(102, 126, 234, 0.1);
+}
+
+@media (min-width: 768px) {
+    .summary-container {
+        flex-direction: row;
+        align-items: flex-start;
+    }
+    
+    .summary-image {
+        max-width: 45%;
+    }
+    
+    .summary-text {
+        max-width: 55%;
+    }
+}
+
+.chromosome {
+    position: relative;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1));
+}
+
+.chromosome:hover {
+    transform: scale(1.15) rotate(5deg);
+    filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.2));
+}
+
+/* X形染色体结构 */
+.chromosome.homolog1, .chromosome.homolog2, .chromosome.single {
+    width: 80px;
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* 同源染色体1 - 较长的染色体 */
+.chromosome.homolog1::before,
+.chromosome.homolog1::after {
+    content: '';
+    position: absolute;
+    width: 12px;
+    height: 45px;
+    border-radius: 6px;
+    background: linear-gradient(135deg, #ff6b6b, #ff4757);
+    border: 2px solid #ff3742;
+}
+
+.chromosome.homolog1::before {
+    transform: rotate(20deg);
+    top: 10px;
+}
+
+.chromosome.homolog1::after {
+    transform: rotate(-20deg);
+    bottom: 10px;
+}
+
+/* 同源染色体2 - 较短的染色体 */
+.chromosome.homolog2::before,
+.chromosome.homolog2::after {
+    content: '';
+    position: absolute;
+    width: 10px;
+    height: 35px;
+    border-radius: 5px;
+    background: linear-gradient(135deg, #4ecdc4, #26d0ce);
+    border: 2px solid #1dd1a1;
+}
+
+.chromosome.homolog2::before {
+    transform: rotate(25deg);
+    top: 15px;
+}
+
+.chromosome.homolog2::after {
+    transform: rotate(-25deg);
+    bottom: 15px;
+}
+
+/* 单个染色体 - 显示姐妹染色单体 */
+.chromosome.single::before,
+.chromosome.single::after {
+    content: '';
+    position: absolute;
+    width: 11px;
+    height: 40px;
+    border-radius: 5px;
+    border: 2px solid #45b7d1;
+}
+
+.chromosome.single::before {
+    background: linear-gradient(135deg, #45b7d1, #74b9ff);
+    transform: rotate(22deg);
+    top: 12px;
+    left: 32px;
+}
+
+.chromosome.single::after {
+    background: linear-gradient(135deg, #74b9ff, #a29bfe);
+    transform: rotate(-22deg);
+    bottom: 12px;
+    left: 32px;
+}
+
+/* 着丝粒 */
+.chromosome.homolog1 .centromere,
+.chromosome.homolog2 .centromere,
+.chromosome.single .centromere {
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    background: radial-gradient(circle, #2c3e50, #34495e);
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 3px solid #fff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    z-index: 10;
+}
+
+/* 染色体标签 */
+.chromosome::after {
+    position: absolute;
+    bottom: -25px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.8rem;
+    font-weight: bold;
+    color: #2c3e50;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 2px 8px;
+    border-radius: 10px;
+    border: 1px solid rgba(102, 126, 234, 0.3);
+}
+
+.chromosome.homolog1::after {
+    content: '父方染色体';
+    color: #ff6b6b;
+}
+
+.chromosome.homolog2::after {
+    content: '母方染色体';
+    color: #4ecdc4;
+}
+
+.chromosome.single::after {
+    content: '姐妹染色单体';
+    color: #45b7d1;
+}
+
+/* 染色体组演示 */
+.chromosome-set-demo {
+    text-align: center;
+    margin: 1rem 0;
+}
+
+.set-label {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 0.5rem;
+}
+
+.chromosome-set {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.mini-chromosome {
+    width: 30px;
+    height: 40px;
+    border-radius: 15px;
+    opacity: 0.8;
+    transition: transform 0.3s ease;
+}
+
+.mini-chromosome:hover {
+    transform: scale(1.2);
+}
+
+/* 概念类比和定义样式 */
+.concept-analogy {
+    background: linear-gradient(135deg, #fff9e6, #ffeaa7);
+    border: 2px solid #fdcb6e;
+    border-radius: 8px;
+    padding: 1rem;
+    margin: 1rem 0;
+}
+
+.concept-analogy p {
+    margin: 0;
+    color: #2d3436;
+    font-style: italic;
+}
+
+.concept-definition {
+    background: linear-gradient(135deg, #e8f4fd, #d1ecf1);
+    border: 2px solid #74b9ff;
+    border-radius: 8px;
+    padding: 1rem;
+    margin: 1rem 0;
+}
+
+.concept-definition p {
+    margin: 0;
+    color: #2d3436;
+    font-weight: 500;
+}
+
+/* 优化染色体组显示 */
+.chromosome-set {
+    display: flex;
+    justify-content: center;
+    gap: 0.8rem;
+    align-items: flex-end;
+}
+
+.mini-chromosome {
+    width: 25px;
+    border-radius: 12px;
+    opacity: 0.9;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.mini-chromosome::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 8px;
+    height: 8px;
+    background: #2c3e50;
+    border-radius: 50%;
+    border: 2px solid #fff;
+}
+
+/* 数量关系演示 */
+.number-explanation {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+}
+
+.number-item {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 10px;
+    border: 2px solid rgba(102, 126, 234, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.number-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.number-demo {
+    margin: 1rem 0;
+    display: flex;
+    justify-content: center;
+}
+
+.demo-cell {
+    background: rgba(240, 248, 255, 0.8);
+    border: 3px dashed #667eea;
+    border-radius: 15px;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.demo-cell.triploid {
+    background: rgba(255, 248, 240, 0.8);
+    border-color: #ff9500;
+}
+
+.chromosome-pair, .chromosome-group {
+    display: flex;
+    gap: 0.3rem;
+    align-items: center;
+}
+
+.demo-cell .chromosome {
+    width: 25px;
+    height: 35px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+    font-size: 0.8rem;
+}
+
+/* 时期卡片 */
+.phases-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+}
+
+/* 宽屏时的四个时期均匀布局 */
+@media (min-width: 1200px) {
+    .phases-container {
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 1600px) {
+    .phases-container {
+        grid-template-columns: repeat(4, 1fr);
+        grid-template-rows: 1fr;
+    }
+}
+
+.phase-item {
+    background: linear-gradient(135deg, #f8f9ff, #e8f2ff);
+    padding: 1.5rem;
+    border-radius: 12px;
+    border-left: 5px solid #667eea;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.phase-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(102, 126, 234, 0.2);
+}
+
+.phase-item h4 {
+    color: #2c3e50;
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+}
+
+.phase-features {
+    margin-bottom: 1rem;
+}
+
+.feature {
+    background: rgba(255, 255, 255, 0.8);
+    padding: 0.5rem;
+    margin: 0.3rem 0;
+    border-radius: 6px;
+    font-size: 0.9rem;
+}
+
+.phase-memory {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    padding: 0.8rem;
+    border-radius: 8px;
+    text-align: center;
+    font-weight: 500;
+}
+
+/* 图表样式 */
+.chart-container {
+    background: white;
+    padding: 2rem;
+    border-radius: 10px;
+    margin: 1rem 0;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.chart-legend {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-top: 1rem;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.legend-color {
+    width: 20px;
+    height: 20px;
+    border-radius: 3px;
+}
+
+/* 模拟器样式 */
+.simulator-container {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.control-panel {
+    background: white;
+    padding: 2rem;
+    border-radius: 15px;
+    margin-bottom: 2rem;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    align-items: center;
+    justify-content: center;
+}
+
+.control-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.control-group label {
+    font-weight: 500;
+    color: #2c3e50;
+}
+
+.control-group select {
+    padding: 0.8rem;
+    border: 2px solid rgba(102, 126, 234, 0.3);
+    border-radius: 8px;
+    font-size: 1rem;
+    background: white;
+    cursor: pointer;
+    transition: border-color 0.3s ease;
+}
+
+.control-group select:focus {
+    outline: none;
+    border-color: #667eea;
+}
+
+.playback-controls {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.control-btn {
+    background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
+    color: white;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 500;
+    min-width: 100px;
+}
+
+.control-btn:hover {
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 6px 15px rgba(255, 107, 107, 0.4);
+}
+
+.control-btn:active {
+    transform: translateY(0) scale(0.98);
+}
+
+.control-btn:disabled {
+    background: linear-gradient(135deg, #bdc3c7, #95a5a6);
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+.auto-play-btn {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 25px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 500;
+    min-width: 140px;
+}
+
+.auto-play-btn:hover {
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+}
+
+.auto-play-btn.playing {
+    background: linear-gradient(135deg, #e74c3c, #c0392b);
+}
+
+/* 模拟显示区域 */
+.simulation-area {
+    background: white;
+    border-radius: 15px;
+    padding: 2rem;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+.cell-display {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.cell-image {
+    background: linear-gradient(135deg, #f8f9ff, #e8f2ff);
+    border-radius: 12px;
+    padding: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 300px;
+    border: 2px solid rgba(102, 126, 234, 0.1);
+}
+
+.cell-image svg {
+    max-width: 100%;
+    max-height: 100%;
+    border-radius: 8px;
+}
+
+.phase-info {
+    background: linear-gradient(135deg, #f8f9ff, #e8f2ff);
+    border-radius: 12px;
+    padding: 2rem;
+    border: 2px solid rgba(102, 126, 234, 0.1);
+}
+
+.phase-info h3 {
+    color: #2c3e50;
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+}
+
+.phase-description {
+    color: #555;
+    line-height: 1.6;
+}
+
+.phase-description ul {
+    margin: 1rem 0;
+    padding-left: 1.5rem;
+}
+
+.phase-description li {
+    margin: 0.5rem 0;
+}
+
+/* 新增的描述样式 */
+.phase-analogy {
+    background: linear-gradient(135deg, #fff9e6, #ffeaa7);
+    border: 2px solid #fdcb6e;
+    border-radius: 10px;
+    padding: 1rem;
+    margin: 1rem 0;
+}
+
+.phase-analogy h4 {
+    color: #e17055;
+    margin-bottom: 0.5rem;
+}
+
+.phase-analogy p {
+    color: #2d3436;
+    font-style: italic;
+    margin: 0;
+}
+
+.precise-definition {
+    background: linear-gradient(135deg, #e8f4fd, #d1ecf1);
+    border: 2px solid #74b9ff;
+    border-radius: 10px;
+    padding: 1rem;
+    margin: 1rem 0;
+}
+
+.precise-definition h4 {
+    color: #0984e3;
+    margin-bottom: 0.5rem;
+}
+
+.precise-definition p {
+    color: #2d3436;
+    margin: 0;
+    font-weight: 500;
+}
+
+.phase-description strong {
+    color: #2c3e50;
+    font-weight: 600;
+}
+
+.phase-description ul li {
+    background: rgba(255, 255, 255, 0.6);
+    padding: 0.8rem;
+    margin: 0.5rem 0;
+    border-radius: 8px;
+    border-left: 4px solid #667eea;
+    transition: all 0.3s ease;
+}
+
+.phase-description ul li:hover {
+    background: rgba(255, 255, 255, 0.9);
+    transform: translateX(5px);
+    box-shadow: 0 2px 8px rgba(102, 126, 234, 0.2);
+}
+
+/* 数量统计 */
+.quantity-stats {
+    background: linear-gradient(135deg, #f8f9ff, #e8f2ff);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    border: 2px solid rgba(102, 126, 234, 0.1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+.quantity-stats h4 {
+    color: #2c3e50;
+    margin-bottom: 1rem;
+    text-align: center;
+    font-size: 1.2rem;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+}
+
+.stat-item {
+    background: white;
+    padding: 1rem;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.stat-item:hover {
+    transform: translateY(-3px);
+}
+
+.stat-label {
+    display: block;
+    color: #666;
+    font-size: 0.85rem;
+    margin-bottom: 0.5rem;
+}
+
+.stat-value {
+    display: block;
+    color: #2c3e50;
+    font-size: 1.3rem;
+    font-weight: bold;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .container {
+        margin: 0;
+    }
+    
+    .navbar {
+        flex-direction: column;
+        gap: 1rem;
+        padding: 1rem;
+    }
+    
+    .nav-menu {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .nav-btn {
+        padding: 0.5rem 1.5rem;
+        font-size: 0.9rem;
+    }
+    
+    .section {
+        padding: 1rem;
+    }
+    
+    .section-title {
+        font-size: 1.8rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    .concept-card {
+        padding: 1.5rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    .concept-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    .concept-item {
+        padding: 1.2rem;
+    }
+    
+    .concept-image {
+        height: 150px;
+    }
+    
+    .phases-container {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .phase-item {
+        padding: 1.2rem;
+    }
+    
+    .number-explanation {
+        grid-template-columns: 1fr;
+    }
+    
+    .control-panel {
+        flex-direction: column;
+        gap: 1rem;
+        padding: 1.5rem;
+    }
+    
+    .control-group {
+        width: 100%;
+    }
+    
+    .control-group select {
+        width: 100%;
+        padding: 0.7rem;
+    }
+    
+    .playback-controls {
+        width: 100%;
+        justify-content: space-between;
+    }
+    
+    .control-btn, .auto-play-btn {
+        flex: 1;
+        margin: 0 0.25rem;
+        padding: 0.7rem 1rem;
+        font-size: 0.85rem;
+    }
+    
+    .cell-display {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .cell-image {
+        min-height: 200px;
+        padding: 1rem;
+    }
+    
+    .phase-info {
+        padding: 1.5rem;
+    }
+    
+    .stats-grid {
+        grid-template-columns: 1fr;
+        gap: 0.8rem;
+    }
+    
+    .stat-item {
+        padding: 0.8rem;
+    }
+    
+    .chart-legend {
+        flex-direction: column;
+        gap: 0.8rem;
+        align-items: center;
+    }
+    
+    .summary-container {
+        flex-direction: column;
+    }
+    
+    .summary-image {
+        max-width: 95%;
+    }
+    
+    .comparison-table {
+        font-size: 0.85rem;
+    }
+    
+    .comparison-table th, .comparison-table td {
+        padding: 0.6rem 0.4rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .nav-brand h1 {
+        font-size: 1.1rem;
+    }
+    
+    .nav-btn {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.85rem;
+    }
+    
+    .section-title {
+        font-size: 1.4rem;
+        margin-bottom: 1rem;
+    }
+    
+    .concept-card {
+        padding: 1rem;
+        margin-bottom: 1rem;
+    }
+    
+    .concept-card h3 {
+        font-size: 1.2rem;
+        margin-bottom: 1rem;
+    }
+    
+    .concept-item {
+        padding: 1rem;
+    }
+    
+    .concept-item h4 {
+        font-size: 1rem;
+        margin-bottom: 0.8rem;
+    }
+    
+    .concept-image {
+        height: 120px;
+    }
+    
+    .chromosome-demo {
+        padding: 1rem;
+        margin: 1rem 0;
+    }
+    
+    .concept-analogy, .concept-definition {
+        padding: 0.8rem;
+        margin: 0.8rem 0;
+    }
+    
+    .phase-item {
+        padding: 1rem;
+    }
+    
+    .phase-item h4 {
+        font-size: 1rem;
+        margin-bottom: 0.8rem;
+    }
+    
+    .feature {
+        padding: 0.4rem;
+        font-size: 0.85rem;
+    }
+    
+    .phase-memory {
+        padding: 0.6rem;
+        font-size: 0.85rem;
+    }
+    
+    .control-panel {
+        padding: 1rem;
+    }
+    
+    .control-btn, .auto-play-btn {
+        padding: 0.6rem 0.8rem;
+        font-size: 0.8rem;
+        min-width: auto;
+    }
+    
+    .quantity-stats {
+        padding: 1rem;
+        margin-bottom: 1rem;
+    }
+    
+    .quantity-stats h4 {
+        font-size: 1rem;
+        margin-bottom: 0.8rem;
+    }
+    
+    .stats-grid {
+        gap: 0.6rem;
+    }
+    
+    .stat-item {
+        padding: 0.6rem;
+    }
+    
+    .stat-label {
+        font-size: 0.8rem;
+    }
+    
+    .stat-value {
+        font-size: 1.1rem;
+    }
+    
+    .cell-image {
+        min-height: 150px;
+        padding: 0.8rem;
+    }
+    
+    .phase-info {
+        padding: 1rem;
+    }
+    
+    .phase-info h3 {
+        font-size: 1.2rem;
+        margin-bottom: 0.8rem;
+    }
+    
+    .summary-image {
+        max-width: 100%;
+    }
+    
+    .comparison-table {
+        font-size: 0.75rem;
+    }
+    
+    .comparison-table th, .comparison-table td {
+        padding: 0.4rem 0.2rem;
+    }
+    
+    .chart-container {
+        padding: 1rem;
+    }
+    
+    #quantityChart {
+        width: 100%;
+        height: 300px;
+    }
+}
+
+/* 动画效果 */
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+.chromosome:hover {
+    animation: pulse 0.6s ease-in-out;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.phase-item {
+    animation: slideIn 0.5s ease-out;
+}
+
+/* 加载动画 */
+.loading {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(102, 126, 234, 0.3);
+    border-radius: 50%;
+    border-top-color: #667eea;
+    animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* 工具提示 */
+.tooltip {
+    position: relative;
+    cursor: help;
+}
+
+.tooltip::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: 125%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #2c3e50;
+    color: white;
+    padding: 0.5rem;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    z-index: 1000;
+}
+
+.tooltip:hover::after {
+    opacity: 1;
+}
+
+/* 高亮效果 */
+.highlight {
+    background: linear-gradient(135deg, #fff3cd, #ffeaa7);
+    border: 2px solid #f39c12;
+    animation: highlight 2s ease-in-out;
+}
+
+@keyframes highlight {
+    0% { box-shadow: 0 0 0 rgba(243, 156, 18, 0.4); }
+    50% { box-shadow: 0 0 20px rgba(243, 156, 18, 0.6); }
+    100% { box-shadow: 0 0 0 rgba(243, 156, 18, 0.4); }
+}
