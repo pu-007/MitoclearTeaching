@@ -34,6 +34,37 @@ function initializeNavigation() {
     });
 }
 
+// 更新染色体组成选项
+function updateChromosomeOptions() {
+    const chromosomeTypeSelect = document.getElementById('chromosomeType');
+    
+    // 定义不同细胞类型的选项
+    const optionsMap = {
+        animal: [
+            { value: '2n=4', text: '2n=4 (二倍体，4条染色体)' }
+        ],
+        plant: [
+            { value: '2n=6', text: '2n=6 (二倍体，6条染色体)' },
+            { value: '3n=6', text: '3n=6 (三倍体，6条染色体)' }
+        ]
+    };
+    
+    // 获取当前细胞类型的选项
+    const currentOptions = optionsMap[currentCellType];
+    
+    // 清空并重新填充选项
+    chromosomeTypeSelect.innerHTML = '';
+    currentOptions.forEach(opt => {
+        const optionElement = document.createElement('option');
+        optionElement.value = opt.value;
+        optionElement.textContent = opt.text;
+        chromosomeTypeSelect.appendChild(optionElement);
+    });
+    
+    // 更新当前染色体类型为新列表的第一个
+    currentChromosomeType = chromosomeTypeSelect.value;
+}
+
 // 模拟器初始化
 function initializeSimulator() {
     const cellTypeSelect = document.getElementById('cellType');
@@ -52,6 +83,7 @@ function initializeSimulator() {
     // 绑定事件监听器
     cellTypeSelect.addEventListener('change', function() {
         currentCellType = this.value;
+        updateChromosomeOptions();
         updateSimulation();
     });
     
@@ -88,6 +120,7 @@ function initializeSimulator() {
     }
     
     // 初始化显示
+    updateChromosomeOptions();
     updateSimulation();
     updateNavigationButtons();
     
