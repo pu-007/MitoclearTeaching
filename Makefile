@@ -28,7 +28,16 @@ endif
 
 # 构建目标
 build:
-	$(PAKE_CMD) $(INDEX_FILE) --name $(APP_NAME) --icon $(ICON_FILE) --always-on-top --targets $(TARGETS) --title $(APP_TITLE) --use-local-file --installer-language $(LANGUAGE) $(DEBUG_FLAG)
+	$(PAKE_CMD) $(INDEX_FILE) \
+		--use-local-file \
+		--always-on-top \
+		--hide-on-close false \
+		--name $(APP_NAME) \
+		--title $(APP_TITLE) \
+		--icon $(ICON_FILE) \
+		--targets $(TARGETS) \
+		--installer-language $(LANGUAGE) \
+		$(DEBUG_FLAG)
 
 # 清理构建产物
 clean:
