@@ -6,171 +6,171 @@ let currentPhase = 'prophase';
 let autoPlayInterval = null;
 
 // 页面加载完成后初始化
-document.addEventListener('DOMContentLoaded', function() {
-    initializeNavigation();
-    initializeSimulator();
-    drawQuantityChart();
+document.addEventListener('DOMContentLoaded', function () {
+  initializeNavigation();
+  initializeSimulator();
+  drawQuantityChart();
 });
 
 // 导航功能
 function initializeNavigation() {
-    const navButtons = document.querySelectorAll('.nav-btn');
-    const sections = document.querySelectorAll('.section');
-    
-    navButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            const targetSection = this.getAttribute('data-section');
-            
-            // 更新按钮状态
-            navButtons.forEach(btn => btn.classList.remove('active'));
-            this.classList.add('active');
-            
-            // 切换章节
-            sections.forEach(section => section.classList.remove('active'));
-            document.getElementById(targetSection).classList.add('active');
-            
-            currentSection = targetSection;
-        });
+  const navButtons = document.querySelectorAll('.nav-btn');
+  const sections = document.querySelectorAll('.section');
+
+  navButtons.forEach(button => {
+    button.addEventListener('click', function () {
+      const targetSection = this.getAttribute('data-section');
+
+      // 更新按钮状态
+      navButtons.forEach(btn => btn.classList.remove('active'));
+      this.classList.add('active');
+
+      // 切换章节
+      sections.forEach(section => section.classList.remove('active'));
+      document.getElementById(targetSection).classList.add('active');
+
+      currentSection = targetSection;
     });
+  });
 }
 
 // 更新染色体组成选项
 function updateChromosomeOptions() {
-    const chromosomeTypeSelect = document.getElementById('chromosomeType');
-    
-    // 定义不同细胞类型的选项
-    const optionsMap = {
-        animal: [
-            { value: '2n=4', text: '2n=4 (二倍体，4条染色体)' }
-        ],
-        plant: [
-            { value: '2n=6', text: '2n=6 (二倍体，6条染色体)' },
-            { value: '3n=6', text: '3n=6 (三倍体，6条染色体)' }
-        ]
-    };
-    
-    // 获取当前细胞类型的选项
-    const currentOptions = optionsMap[currentCellType];
-    
-    // 清空并重新填充选项
-    chromosomeTypeSelect.innerHTML = '';
-    currentOptions.forEach(opt => {
-        const optionElement = document.createElement('option');
-        optionElement.value = opt.value;
-        optionElement.textContent = opt.text;
-        chromosomeTypeSelect.appendChild(optionElement);
-    });
-    
-    // 更新当前染色体类型为新列表的第一个
-    currentChromosomeType = chromosomeTypeSelect.value;
+  const chromosomeTypeSelect = document.getElementById('chromosomeType');
+
+  // 定义不同细胞类型的选项
+  const optionsMap = {
+    animal: [
+      { value: '2n=4', text: '2n=4 (二倍体，4条染色体)' }
+    ],
+    plant: [
+      { value: '2n=6', text: '2n=6 (二倍体，6条染色体)' },
+      { value: '3n=6', text: '3n=6 (三倍体，6条染色体)' }
+    ]
+  };
+
+  // 获取当前细胞类型的选项
+  const currentOptions = optionsMap[currentCellType];
+
+  // 清空并重新填充选项
+  chromosomeTypeSelect.innerHTML = '';
+  currentOptions.forEach(opt => {
+    const optionElement = document.createElement('option');
+    optionElement.value = opt.value;
+    optionElement.textContent = opt.text;
+    chromosomeTypeSelect.appendChild(optionElement);
+  });
+
+  // 更新当前染色体类型为新列表的第一个
+  currentChromosomeType = chromosomeTypeSelect.value;
 }
 
 // 模拟器初始化
 function initializeSimulator() {
-    const cellTypeSelect = document.getElementById('cellType');
-    const chromosomeTypeSelect = document.getElementById('chromosomeType');
-    const phaseSelect = document.getElementById('phase');
-    const autoPlayBtn = document.getElementById('autoPlay');
-    const prevBtn = document.getElementById('prevStep');
-    const nextBtn = document.getElementById('nextStep');
-    
-    // 检查元素是否存在
-    if (!cellTypeSelect || !chromosomeTypeSelect || !phaseSelect || !autoPlayBtn) {
-        console.warn('某些控制元素未找到，跳过初始化');
-        return;
-    }
-    
-    // 绑定事件监听器
-    cellTypeSelect.addEventListener('change', function() {
-        currentCellType = this.value;
-        updateChromosomeOptions();
-        updateSimulation();
-    });
-    
-    chromosomeTypeSelect.addEventListener('change', function() {
-        currentChromosomeType = this.value;
-        updateSimulation();
-    });
-    
-    phaseSelect.addEventListener('change', function() {
-        currentPhase = this.value;
-        updateSimulation();
-        updateNavigationButtons();
-    });
-    
-    autoPlayBtn.addEventListener('click', function() {
-        if (autoPlayInterval) {
-            stopAutoPlay();
-        } else {
-            startAutoPlay();
-        }
-    });
-    
-    // 添加上一步/下一步按钮事件
-    if (prevBtn) {
-        prevBtn.addEventListener('click', function() {
-            navigatePhase(-1);
-        });
-    }
-    
-    if (nextBtn) {
-        nextBtn.addEventListener('click', function() {
-            navigatePhase(1);
-        });
-    }
-    
-    // 初始化显示
+  const cellTypeSelect = document.getElementById('cellType');
+  const chromosomeTypeSelect = document.getElementById('chromosomeType');
+  const phaseSelect = document.getElementById('phase');
+  const autoPlayBtn = document.getElementById('autoPlay');
+  const prevBtn = document.getElementById('prevStep');
+  const nextBtn = document.getElementById('nextStep');
+
+  // 检查元素是否存在
+  if (!cellTypeSelect || !chromosomeTypeSelect || !phaseSelect || !autoPlayBtn) {
+    console.warn('某些控制元素未找到，跳过初始化');
+    return;
+  }
+
+  // 绑定事件监听器
+  cellTypeSelect.addEventListener('change', function () {
+    currentCellType = this.value;
     updateChromosomeOptions();
     updateSimulation();
+  });
+
+  chromosomeTypeSelect.addEventListener('change', function () {
+    currentChromosomeType = this.value;
+    updateSimulation();
+  });
+
+  phaseSelect.addEventListener('change', function () {
+    currentPhase = this.value;
+    updateSimulation();
     updateNavigationButtons();
-    
-    // 添加模拟器控制按钮的事件监听
-    initializeSimulatorControls();
+  });
+
+  autoPlayBtn.addEventListener('click', function () {
+    if (autoPlayInterval) {
+      stopAutoPlay();
+    } else {
+      startAutoPlay();
+    }
+  });
+
+  // 添加上一步/下一步按钮事件
+  if (prevBtn) {
+    prevBtn.addEventListener('click', function () {
+      navigatePhase(-1);
+    });
+  }
+
+  if (nextBtn) {
+    nextBtn.addEventListener('click', function () {
+      navigatePhase(1);
+    });
+  }
+
+  // 初始化显示
+  updateChromosomeOptions();
+  updateSimulation();
+  updateNavigationButtons();
+
+  // 添加模拟器控制按钮的事件监听
+  initializeSimulatorControls();
 }
 
 // 初始化模拟器控制按钮
 function initializeSimulatorControls() {
-    const simPrevBtn = document.getElementById('simPrevStep');
-    const simNextBtn = document.getElementById('simNextStep');
-    const simAutoPlayBtn = document.getElementById('simAutoPlay');
-    
-    if (simPrevBtn) {
-        simPrevBtn.addEventListener('click', function() {
-            navigatePhase(-1);
-        });
-    }
-    
-    if (simNextBtn) {
-        simNextBtn.addEventListener('click', function() {
-            navigatePhase(1);
-        });
-    }
-    
-    if (simAutoPlayBtn) {
-        simAutoPlayBtn.addEventListener('click', function() {
-            if (autoPlayInterval) {
-                stopSimAutoPlay();
-            } else {
-                startSimAutoPlay();
-            }
-        });
-    }
+  const simPrevBtn = document.getElementById('simPrevStep');
+  const simNextBtn = document.getElementById('simNextStep');
+  const simAutoPlayBtn = document.getElementById('simAutoPlay');
+
+  if (simPrevBtn) {
+    simPrevBtn.addEventListener('click', function () {
+      navigatePhase(-1);
+    });
+  }
+
+  if (simNextBtn) {
+    simNextBtn.addEventListener('click', function () {
+      navigatePhase(1);
+    });
+  }
+
+  if (simAutoPlayBtn) {
+    simAutoPlayBtn.addEventListener('click', function () {
+      if (autoPlayInterval) {
+        stopSimAutoPlay();
+      } else {
+        startSimAutoPlay();
+      }
+    });
+  }
 }
 
 // 更新模拟显示
 function updateSimulation() {
-    updateCellImage();
-    updatePhaseInfo();
-    updateQuantityStats();
+  updateCellImage();
+  updatePhaseInfo();
+  updateQuantityStats();
 }
 
 // 更新细胞图像
 function updateCellImage() {
-    const cellImageDiv = document.getElementById('cellImage');
-    const imagePath = `assets/${currentCellType === 'animal' ? '动物' : '植物'}/${currentChromosomeType}/${getPhaseFileName()}.svg`;
-    
-    // 创建图像容器
-    cellImageDiv.innerHTML = `
+  const cellImageDiv = document.getElementById('cellImage');
+  const imagePath = `assets/${currentCellType === 'animal' ? '动物' : '植物'}/${currentChromosomeType}/${getPhaseFileName()}.svg`;
+
+  // 创建图像容器
+  cellImageDiv.innerHTML = `
         <div class="image-container">
             <img src="${imagePath}" alt="${getPhaseTitle()}" style="max-width: 100%; max-height: 100%; object-fit: contain;" />
         </div>
@@ -179,40 +179,40 @@ function updateCellImage() {
 
 // 获取时期文件名
 function getPhaseFileName() {
-    const phaseMap = {
-        'prophase': '前期',
-        'metaphase': '中期',
-        'anaphase': '后期',
-        'telophase': '末期'
-    };
-    return phaseMap[currentPhase];
+  const phaseMap = {
+    'prophase': '前期',
+    'metaphase': '中期',
+    'anaphase': '后期',
+    'telophase': '末期'
+  };
+  return phaseMap[currentPhase];
 }
 
 // 获取时期标题
 function getPhaseTitle() {
-    const titleMap = {
-        'prophase': '前期 (Prophase)',
-        'metaphase': '中期 (Metaphase)',
-        'anaphase': '后期 (Anaphase)',
-        'telophase': '末期 (Telophase)'
-    };
-    return titleMap[currentPhase];
+  const titleMap = {
+    'prophase': '前期 (Prophase)',
+    'metaphase': '中期 (Metaphase)',
+    'anaphase': '后期 (Anaphase)',
+    'telophase': '末期 (Telophase)'
+  };
+  return titleMap[currentPhase];
 }
 
 // 更新时期信息
 function updatePhaseInfo() {
-    const phaseTitle = document.getElementById('phaseTitle');
-    const phaseDescription = document.getElementById('phaseDescription');
-    
-    phaseTitle.textContent = getPhaseTitle();
-    phaseDescription.innerHTML = getPhaseDescription();
+  const phaseTitle = document.getElementById('phaseTitle');
+  const phaseDescription = document.getElementById('phaseDescription');
+
+  phaseTitle.textContent = getPhaseTitle();
+  phaseDescription.innerHTML = getPhaseDescription();
 }
 
 // 获取时期描述
 function getPhaseDescription() {
-    const cellTypeText = currentCellType === 'animal' ? '动物细胞' : '植物细胞';
-    const descriptions = {
-        'prophase': `
+  const cellTypeText = currentCellType === 'animal' ? '动物细胞' : '植物细胞';
+  const descriptions = {
+    'prophase': `
             <div class="phase-analogy">
                 <h4>🎭 生活类比：</h4>
                 <p>就像演员在后台准备上台表演一样，细胞内的"演员"（染色体）正在整理装扮，准备登台亮相！</p>
@@ -231,7 +231,7 @@ function getPhaseDescription() {
             <p><strong>🎯 记忆口诀：</strong>"膜仁消失，两体出现"</p>
             <p><strong>🔬 细胞类型：</strong>${cellTypeText}</p>
         `,
-        'metaphase': `
+    'metaphase': `
             <div class="phase-analogy">
                 <h4>🎭 生活类比：</h4>
                 <p>就像军队检阅时所有士兵整齐排列在广场中央一样，染色体们也在细胞中央排成一条整齐的队伍！</p>
@@ -250,7 +250,7 @@ function getPhaseDescription() {
             <p><strong>🎯 记忆口诀：</strong>"形定数清，赤道排列"</p>
             <p><strong>🔬 细胞类型：</strong>${cellTypeText}</p>
         `,
-        'anaphase': `
+    'anaphase': `
             <div class="phase-analogy">
                 <h4>🎭 生活类比：</h4>
                 <p>就像拉链被拉开一样，原本连在一起的姐妹染色单体突然分开，各自奔向细胞的两端，就像两队人马分别回到自己的营地！</p>
@@ -269,7 +269,7 @@ function getPhaseDescription() {
             <p><strong>🎯 记忆口诀：</strong>"点裂数增，均分两极"</p>
             <p><strong>🔬 细胞类型：</strong>${cellTypeText}</p>
         `,
-        'telophase': `
+    'telophase': `
             <div class="phase-analogy">
                 <h4>🎭 生活类比：</h4>
                 <p>就像演出结束后演员们回到各自的化妆间，脱下演出服装一样，染色体们也回到各自的"房间"，恢复日常的松散状态！</p>
@@ -288,465 +288,407 @@ function getPhaseDescription() {
             <p><strong>🎯 记忆口诀：</strong>"两体消失，膜仁重建"</p>
             <p><strong>🔬 细胞类型：</strong>${cellTypeText}</p>
         `
-    };
-    
-    return descriptions[currentPhase];
+  };
+
+  return descriptions[currentPhase];
 }
 
 // 导航功能
 function navigatePhase(direction) {
-    const phases = ['prophase', 'metaphase', 'anaphase', 'telophase'];
-    const currentIndex = phases.indexOf(currentPhase);
-    let newIndex = currentIndex + direction;
-    
-    // 循环导航
-    if (newIndex < 0) newIndex = phases.length - 1;
-    if (newIndex >= phases.length) newIndex = 0;
-    
-    currentPhase = phases[newIndex];
-    const phaseSelect = document.getElementById('phase');
-    if (phaseSelect) {
-        phaseSelect.value = currentPhase;
-    }
-    updateSimulation();
-    updateNavigationButtons();
+  const phases = ['prophase', 'metaphase', 'anaphase', 'telophase'];
+  const currentIndex = phases.indexOf(currentPhase);
+  let newIndex = currentIndex + direction;
+
+  // 循环导航
+  if (newIndex < 0) newIndex = phases.length - 1;
+  if (newIndex >= phases.length) newIndex = 0;
+
+  currentPhase = phases[newIndex];
+  const phaseSelect = document.getElementById('phase');
+  if (phaseSelect) {
+    phaseSelect.value = currentPhase;
+  }
+  updateSimulation();
+  updateNavigationButtons();
 }
 
 // 更新导航按钮状态
 function updateNavigationButtons() {
-    const phases = ['prophase', 'metaphase', 'anaphase', 'telophase'];
-    const currentIndex = phases.indexOf(currentPhase);
-    const prevBtn = document.getElementById('prevStep');
-    const nextBtn = document.getElementById('nextStep');
-    
-    if (prevBtn && nextBtn) {
-        // 移除禁用状态，允许循环导航
-        prevBtn.disabled = false;
-        nextBtn.disabled = false;
-        
-        // 更新按钮文本显示当前位置
-        prevBtn.innerHTML = `⏮️ 上一步 (${currentIndex + 1}/4)`;
-        nextBtn.innerHTML = `⏭️ 下一步 (${currentIndex + 1}/4)`;
-    }
+  const phases = ['prophase', 'metaphase', 'anaphase', 'telophase'];
+  const currentIndex = phases.indexOf(currentPhase);
+  const prevBtn = document.getElementById('prevStep');
+  const nextBtn = document.getElementById('nextStep');
+
+  if (prevBtn && nextBtn) {
+    // 移除禁用状态，允许循环导航
+    prevBtn.disabled = false;
+    nextBtn.disabled = false;
+
+    // 更新按钮文本显示当前位置
+    prevBtn.innerHTML = `⏮️ 上一步 (${currentIndex + 1}/4)`;
+    nextBtn.innerHTML = `⏭️ 下一步 (${currentIndex + 1}/4)`;
+  }
 }
 
 // 更新数量统计
 function updateQuantityStats() {
-    const chromosomeCount = document.getElementById('chromosomeCount');
-    const dnaCount = document.getElementById('dnaCount');
-    const chromatidCount = document.getElementById('chromatidCount');
-    
-    const stats = getQuantityStats();
-    
-    chromosomeCount.textContent = stats.chromosomes;
-    dnaCount.textContent = stats.dna;
-    chromatidCount.textContent = stats.chromatids;
+  const chromosomeCount = document.getElementById('chromosomeCount');
+  const dnaCount = document.getElementById('dnaCount');
+  const chromatidCount = document.getElementById('chromatidCount');
+
+  const stats = getQuantityStats();
+
+  chromosomeCount.textContent = stats.chromosomes;
+  dnaCount.textContent = stats.dna;
+  chromatidCount.textContent = stats.chromatids;
 }
 
 // 获取数量统计
 function getQuantityStats() {
-    // 解析染色体类型
-    let baseNumber;
-    let ploidy;
-    
-    if (currentChromosomeType === '2n=4') {
-        baseNumber = 2; // n=2
-        ploidy = 2; // 二倍体
-    } else if (currentChromosomeType === '2n=6') {
-        baseNumber = 3; // n=3
-        ploidy = 2; // 二倍体
-    } else if (currentChromosomeType === '3n=6') {
-        baseNumber = 2; // n=2
-        ploidy = 3; // 三倍体
-    }
-    
-    const totalChromosomes = baseNumber * ploidy;
-    
-    let chromosomes, dna, chromatids;
-    
-    // 根据分裂时期计算数量
-    switch (currentPhase) {
-        case 'prophase':
-        case 'metaphase':
-            chromosomes = totalChromosomes;
-            dna = totalChromosomes * 2; // 每条染色体有2个DNA分子
-            chromatids = totalChromosomes * 2; // 每条染色体有2条染色单体
-            break;
-            
-        case 'anaphase':
-            chromosomes = totalChromosomes * 2; // 着丝粒分裂，数目加倍
-            dna = totalChromosomes * 2; // DNA总数不变
-            chromatids = 0; // 染色单体消失
-            break;
-            
-        case 'telophase':
-            chromosomes = `${totalChromosomes * 2} → ${totalChromosomes}/细胞`;
-            dna = `${totalChromosomes * 2} → ${totalChromosomes}/细胞`;
-            chromatids = 0;
-            break;
-    }
-    
-    return {
-        chromosomes: chromosomes,
-        dna: dna,
-        chromatids: chromatids
-    };
+  // 解析染色体类型
+  let baseNumber;
+  let ploidy;
+
+  if (currentChromosomeType === '2n=4') {
+    baseNumber = 2; // n=2
+    ploidy = 2; // 二倍体
+  } else if (currentChromosomeType === '2n=6') {
+    baseNumber = 3; // n=3
+    ploidy = 2; // 二倍体
+  } else if (currentChromosomeType === '3n=6') {
+    baseNumber = 2; // n=2
+    ploidy = 3; // 三倍体
+  }
+
+  const totalChromosomes = baseNumber * ploidy;
+
+  let chromosomes, dna, chromatids;
+
+  // 根据分裂时期计算数量
+  switch (currentPhase) {
+    case 'prophase':
+    case 'metaphase':
+      chromosomes = totalChromosomes;
+      dna = totalChromosomes * 2; // 每条染色体有2个DNA分子
+      chromatids = totalChromosomes * 2; // 每条染色体有2条染色单体
+      break;
+
+    case 'anaphase':
+      chromosomes = totalChromosomes * 2; // 着丝粒分裂，数目加倍
+      dna = totalChromosomes * 2; // DNA总数不变
+      chromatids = 0; // 染色单体消失
+      break;
+
+    case 'telophase':
+      chromosomes = `${totalChromosomes * 2} → ${totalChromosomes}/细胞`;
+      dna = `${totalChromosomes * 2} → ${totalChromosomes}/细胞`;
+      chromatids = 0;
+      break;
+  }
+
+  return {
+    chromosomes: chromosomes,
+    dna: dna,
+    chromatids: chromatids
+  };
 }
 
 // 自动播放功能
 function startAutoPlay() {
-    const phases = ['prophase', 'metaphase', 'anaphase', 'telophase'];
-    const autoPlayBtn = document.getElementById('autoPlay');
-    const phaseSelect = document.getElementById('phase');
-    
-    if (!autoPlayBtn || !phaseSelect) return;
-    
-    autoPlayBtn.textContent = '⏸️ 暂停播放';
-    autoPlayBtn.classList.add('playing');
-    
-    let currentIndex = phases.indexOf(currentPhase);
-    
-    autoPlayInterval = setInterval(() => {
-        currentIndex = (currentIndex + 1) % phases.length;
-        currentPhase = phases[currentIndex];
-        phaseSelect.value = currentPhase;
-        updateSimulation();
-        updateNavigationButtons();
-    }, 3000); // 每3秒切换一次
+  const phases = ['prophase', 'metaphase', 'anaphase', 'telophase'];
+  const autoPlayBtn = document.getElementById('autoPlay');
+  const phaseSelect = document.getElementById('phase');
+
+  if (!autoPlayBtn || !phaseSelect) return;
+
+  autoPlayBtn.textContent = '⏸️ 暂停播放';
+  autoPlayBtn.classList.add('playing');
+
+  let currentIndex = phases.indexOf(currentPhase);
+
+  autoPlayInterval = setInterval(() => {
+    currentIndex = (currentIndex + 1) % phases.length;
+    currentPhase = phases[currentIndex];
+    phaseSelect.value = currentPhase;
+    updateSimulation();
+    updateNavigationButtons();
+  }, 3000); // 每3秒切换一次
 }
 
 function stopAutoPlay() {
-    const autoPlayBtn = document.getElementById('autoPlay');
-    
-    if (autoPlayInterval) {
-        clearInterval(autoPlayInterval);
-        autoPlayInterval = null;
-    }
-    
-    if (autoPlayBtn) {
-        autoPlayBtn.textContent = '🎬 自动播放';
-        autoPlayBtn.classList.remove('playing');
-    }
+  const autoPlayBtn = document.getElementById('autoPlay');
+
+  if (autoPlayInterval) {
+    clearInterval(autoPlayInterval);
+    autoPlayInterval = null;
+  }
+
+  if (autoPlayBtn) {
+    autoPlayBtn.textContent = '🎬 自动播放';
+    autoPlayBtn.classList.remove('playing');
+  }
 }
 
 // 模拟器专用自动播放功能
 function startSimAutoPlay() {
-    const phases = ['prophase', 'metaphase', 'anaphase', 'telophase'];
-    const simAutoPlayBtn = document.getElementById('simAutoPlay');
-    const simPlayIcon = document.getElementById('simPlayIcon');
-    const simPlayText = document.getElementById('simPlayText');
-    const phaseSelect = document.getElementById('phase');
-    
-    if (!simAutoPlayBtn || !phaseSelect) return;
-    
-    simAutoPlayBtn.classList.add('playing');
-    if (simPlayIcon) simPlayIcon.textContent = '⏸️';
-    if (simPlayText) simPlayText.textContent = '暂停';
-    
-    let currentIndex = phases.indexOf(currentPhase);
-    
-    autoPlayInterval = setInterval(() => {
-        currentIndex = (currentIndex + 1) % phases.length;
-        currentPhase = phases[currentIndex];
-        phaseSelect.value = currentPhase;
-        updateSimulation();
-        updateNavigationButtons();
-    }, 3000); // 每3秒切换一次
+  const phases = ['prophase', 'metaphase', 'anaphase', 'telophase'];
+  const simAutoPlayBtn = document.getElementById('simAutoPlay');
+  const simPlayIcon = document.getElementById('simPlayIcon');
+  const simPlayText = document.getElementById('simPlayText');
+  const phaseSelect = document.getElementById('phase');
+
+  if (!simAutoPlayBtn || !phaseSelect) return;
+
+  simAutoPlayBtn.classList.add('playing');
+  if (simPlayIcon) simPlayIcon.textContent = '⏸️';
+  if (simPlayText) simPlayText.textContent = '暂停';
+
+  let currentIndex = phases.indexOf(currentPhase);
+
+  autoPlayInterval = setInterval(() => {
+    currentIndex = (currentIndex + 1) % phases.length;
+    currentPhase = phases[currentIndex];
+    phaseSelect.value = currentPhase;
+    updateSimulation();
+    updateNavigationButtons();
+  }, 3000); // 每3秒切换一次
 }
 
 function stopSimAutoPlay() {
-    const simAutoPlayBtn = document.getElementById('simAutoPlay');
-    const simPlayIcon = document.getElementById('simPlayIcon');
-    const simPlayText = document.getElementById('simPlayText');
-    
-    if (autoPlayInterval) {
-        clearInterval(autoPlayInterval);
-        autoPlayInterval = null;
-    }
-    
-    if (simAutoPlayBtn) {
-        simAutoPlayBtn.classList.remove('playing');
-        if (simPlayIcon) simPlayIcon.textContent = '▶️';
-        if (simPlayText) simPlayText.textContent = '播放';
-    }
-}
+  const simAutoPlayBtn = document.getElementById('simAutoPlay');
+  const simPlayIcon = document.getElementById('simPlayIcon');
+  const simPlayText = document.getElementById('simPlayText');
 
-// 修复图表绘制函数，添加错误检查
-function drawQuantityChart() {
-    const canvas = document.getElementById('quantityChart');
-    if (!canvas) {
-        console.warn('图表画布未找到');
-        return;
-    }
-    
-    const ctx = canvas.getContext('2d');
-    if (!ctx) {
-        console.warn('无法获取画布上下文');
-        return;
-    }
-    
-    // 设置画布尺寸
-    const width = canvas.width;
-    const height = canvas.height;
-    
-    // 清空画布
-    ctx.clearRect(0, 0, width, height);
-    
-    // 设置样式
-    ctx.font = '14px "Noto Sans SC", sans-serif';
-    ctx.lineWidth = 3;
-    
-    // 数据点（以2n=4为例）
-    const phases = ['G1期', 'S期', 'G2期', '前期', '中期', '后期', '末期'];
-    const chromosomeData = [4, 4, 4, 4, 4, 8, 4]; // 染色体数
-    const dnaData = [4, 8, 8, 8, 8, 8, 4]; // DNA数
-    const chromatidData = [0, 4, 8, 8, 8, 0, 0]; // 染色单体数
-    
-    // 计算绘图区域
-    const padding = 60;
-    const chartWidth = width - 2 * padding;
-    const chartHeight = height - 2 * padding;
-    
-    // 绘制坐标轴
-    ctx.strokeStyle = '#333';
-    ctx.lineWidth = 2;
-    ctx.beginPath();
-    ctx.moveTo(padding, padding);
-    ctx.lineTo(padding, height - padding);
-    ctx.lineTo(width - padding, height - padding);
-    ctx.stroke();
-    
-    // 绘制网格线和Y轴标签
-    ctx.strokeStyle = '#e0e0e0';
-    ctx.lineWidth = 1;
-    for (let i = 0; i <= 8; i++) {
-        const y = height - padding - (i / 8) * chartHeight;
-        ctx.beginPath();
-        ctx.moveTo(padding, y);
-        ctx.lineTo(width - padding, y);
-        ctx.stroke();
-        
-        // Y轴标签
-        ctx.fillStyle = '#666';
-        ctx.textAlign = 'right';
-        ctx.fillText(i.toString(), padding - 10, y + 5);
-    }
-    
-    // 绘制X轴标签
-    ctx.fillStyle = '#666';
-    ctx.textAlign = 'center';
-    phases.forEach((phase, index) => {
-        const x = padding + (index / (phases.length - 1)) * chartWidth;
-        ctx.fillText(phase, x, height - padding + 25);
-    });
-    
-    // 绘制数据线函数
-    function drawLine(data, color) {
-        ctx.strokeStyle = color;
-        ctx.lineWidth = 3;
-        ctx.beginPath();
-        
-        data.forEach((value, index) => {
-            const x = padding + (index / (phases.length - 1)) * chartWidth;
-            const y = height - padding - (value / 8) * chartHeight;
-            
-            if (index === 0) {
-                ctx.moveTo(x, y);
-            } else {
-                ctx.lineTo(x, y);
-            }
-        });
-        
-        ctx.stroke();
-        
-        // 绘制数据点
-        ctx.fillStyle = color;
-        data.forEach((value, index) => {
-            const x = padding + (index / (phases.length - 1)) * chartWidth;
-            const y = height - padding - (value / 8) * chartHeight;
-            
-            ctx.beginPath();
-            ctx.arc(x, y, 5, 0, 2 * Math.PI);
-            ctx.fill();
-        });
-    }
-    
-    // 绘制三条线
-    drawLine(chromosomeData, '#ff6b6b'); // 染色体数
-    drawLine(dnaData, '#4ecdc4'); // DNA数
-    drawLine(chromatidData, '#45b7d1'); // 染色单体数
-    
-    // 添加标题
-    ctx.fillStyle = '#333';
-    ctx.font = '16px "Noto Sans SC", sans-serif';
-    ctx.textAlign = 'center';
-    ctx.fillText('有丝分裂过程中数量变化图 (以2n=4为例)', width / 2, 30);
-    
-    // Y轴标题
-    ctx.save();
-    ctx.translate(20, height / 2);
-    ctx.rotate(-Math.PI / 2);
-    ctx.fillText('数量', 0, 0);
-    ctx.restore();
+  if (autoPlayInterval) {
+    clearInterval(autoPlayInterval);
+    autoPlayInterval = null;
+  }
+
+  if (simAutoPlayBtn) {
+    simAutoPlayBtn.classList.remove('playing');
+    if (simPlayIcon) simPlayIcon.textContent = '▶️';
+    if (simPlayText) simPlayText.textContent = '播放';
+  }
 }
 
 // 绘制数量变化图表
 function drawQuantityChart() {
-    const canvas = document.getElementById('quantityChart');
-    const ctx = canvas.getContext('2d');
-    
-    // 设置画布尺寸
-    const width = canvas.width;
-    const height = canvas.height;
-    
-    // 清空画布
-    ctx.clearRect(0, 0, width, height);
-    
-    // 设置样式
-    ctx.font = '14px "Noto Sans SC", sans-serif';
-    ctx.lineWidth = 3;
-    
-    // 数据点（以2n=4为例）
-    const phases = ['G1期', 'S期', 'G2期', '前期', '中期', '后期', '末期'];
-    const chromosomeData = [4, 4, 4, 4, 4, 8, 4]; // 染色体数
-    const dnaData = [4, 8, 8, 8, 8, 8, 4]; // DNA数
-    const chromatidData = [0, 4, 8, 8, 8, 0, 0]; // 染色单体数
-    
-    // 计算绘图区域
-    const padding = 60;
-    const chartWidth = width - 2 * padding;
-    const chartHeight = height - 2 * padding;
-    
-    // 绘制坐标轴
-    ctx.strokeStyle = '#333';
-    ctx.lineWidth = 2;
+  const canvas = document.getElementById('quantityChart');
+  if (!canvas) {
+    console.warn('图表画布未找到');
+    return;
+  }
+  const ctx = canvas.getContext('2d');
+  if (!ctx) {
+    console.warn('无法获取画布上下文');
+    return;
+  }
+
+  // 基础设置
+  const width = canvas.width;
+  const height = canvas.height;
+  ctx.clearRect(0, 0, width, height);
+  ctx.font = '14px "Noto Sans SC", sans-serif';
+
+  // 绘图区域
+  const padding = 60;
+  const chartWidth = width - 2 * padding;
+  const chartHeight = height - 2 * padding;
+  const maxValue = 8.2; // Y轴最大值, 留出微小偏移空间
+
+  // 定义时期和数据
+  const phases = ['间期', '前期', '中期', '后期', '末期'];
+  const phaseBoundaries = [0, 0.5, 0.7, 0.8, 0.9, 1.0];
+
+  const chromosomeData = [[0, 4], [0.5, 4], [0.8, 8], [0.9, 8], [1.0, 4]];
+  const dnaData = [[0, 4], [0.3, 4], [0.4, 8], [0.9, 8], [1.0, 4]];
+  const chromatidData = [[0, 0], [0.3, 0], [0.4, 8], [0.8, 8], [0.8, 0], [1.0, 0]];
+
+  // 坐标转换函数
+  const toX = (time) => padding + time * chartWidth;
+  const toY = (value) => height - padding - (value / maxValue) * chartHeight;
+
+  // 绘制坐标轴和网格线
+  ctx.strokeStyle = '#333';
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  ctx.moveTo(padding, padding);
+  ctx.lineTo(padding, height - padding);
+  ctx.lineTo(width - padding, height - padding);
+  ctx.stroke();
+
+  ctx.strokeStyle = '#e0e0e0';
+  ctx.lineWidth = 1;
+  ctx.fillStyle = '#666';
+  ctx.textAlign = 'right';
+  for (let i = 0; i <= 8; i++) {
+    const y = toY(i);
     ctx.beginPath();
-    ctx.moveTo(padding, padding);
-    ctx.lineTo(padding, height - padding);
-    ctx.lineTo(width - padding, height - padding);
+    ctx.moveTo(padding, y);
+    ctx.lineTo(width - padding, y);
     ctx.stroke();
-    
-    // 绘制网格线
-    ctx.strokeStyle = '#e0e0e0';
-    ctx.lineWidth = 1;
-    for (let i = 0; i <= 8; i++) {
-        const y = height - padding - (i / 8) * chartHeight;
-        ctx.beginPath();
-        ctx.moveTo(padding, y);
-        ctx.lineTo(width - padding, y);
-        ctx.stroke();
-        
-        // Y轴标签
-        ctx.fillStyle = '#666';
-        ctx.textAlign = 'right';
-        ctx.fillText(i.toString(), padding - 10, y + 5);
+    if (i % 2 === 0) {
+      ctx.fillText(i.toString(), padding - 10, y + 5);
     }
-    
-    // 绘制X轴标签
-    ctx.fillStyle = '#666';
-    ctx.textAlign = 'center';
-    phases.forEach((phase, index) => {
-        const x = padding + (index / (phases.length - 1)) * chartWidth;
-        ctx.fillText(phase, x, height - padding + 25);
+  }
+
+  // 绘制时期分隔线
+  ctx.strokeStyle = '#cccccc';
+  ctx.lineWidth = 1;
+  ctx.setLineDash([5, 5]);
+  for (let i = 1; i < phaseBoundaries.length - 1; i++) {
+    const x = toX(phaseBoundaries[i]);
+    ctx.beginPath();
+    ctx.moveTo(x, padding);
+    ctx.lineTo(x, height - padding);
+    ctx.stroke();
+  }
+  ctx.setLineDash([]);
+
+  // 绘制X轴标签
+  ctx.fillStyle = '#333';
+  ctx.textAlign = 'center';
+  phases.forEach((phase, index) => {
+    const start = phaseBoundaries[index];
+    const end = phaseBoundaries[index + 1];
+    const middle = (start + end) / 2;
+    ctx.fillText(phase, toX(middle), height - padding + 25);
+  });
+
+  // 绘制数据线函数
+  function drawDataLine(data, color, yOffset = 0, xOffset = 0, dashed = false) {
+    ctx.strokeStyle = color;
+    ctx.lineWidth = 3;
+    ctx.beginPath();
+
+    if (dashed) {
+      ctx.setLineDash([8, 8]);
+    }
+
+    const getX = (time) => toX(time + xOffset);
+    const getY = (value) => toY(value + yOffset);
+
+    ctx.moveTo(getX(data[0][0]), getY(data[0][1]));
+
+    for (let i = 1; i < data.length; i++) {
+      const prevPoint = data[i - 1];
+      const currentPoint = data[i];
+
+      const isSPhaseSlope = (data === dnaData || data === chromatidData) && prevPoint[0] === 0.3 && currentPoint[0] === 0.4;
+
+      if (isSPhaseSlope) {
+        ctx.lineTo(getX(currentPoint[0]), getY(currentPoint[1]));
+      } else {
+        const stepX = getX(currentPoint[0]);
+        ctx.lineTo(stepX, getY(prevPoint[1]));
+        if (currentPoint[1] !== prevPoint[1]) {
+          ctx.lineTo(stepX, getY(currentPoint[1]));
+        }
+      }
+    }
+    ctx.stroke();
+    ctx.setLineDash([]); // Reset for other lines
+
+    ctx.fillStyle = color;
+    data.forEach(point => {
+      ctx.beginPath();
+      ctx.arc(getX(point[0]), getY(point[1]), 5, 0, 2 * Math.PI);
+      ctx.fill();
     });
-    
-    // 绘制数据线
-    function drawLine(data, color) {
-        ctx.strokeStyle = color;
-        ctx.lineWidth = 3;
-        ctx.beginPath();
-        
-        data.forEach((value, index) => {
-            const x = padding + (index / (phases.length - 1)) * chartWidth;
-            const y = height - padding - (value / 8) * chartHeight;
-            
-            if (index === 0) {
-                ctx.moveTo(x, y);
-            } else {
-                ctx.lineTo(x, y);
-            }
-        });
-        
-        ctx.stroke();
-        
-        // 绘制数据点
-        ctx.fillStyle = color;
-        data.forEach((value, index) => {
-            const x = padding + (index / (phases.length - 1)) * chartWidth;
-            const y = height - padding - (value / 8) * chartHeight;
-            
-            ctx.beginPath();
-            ctx.arc(x, y, 5, 0, 2 * Math.PI);
-            ctx.fill();
-        });
-    }
-    
-    // 绘制三条线
-    drawLine(chromosomeData, '#ff6b6b'); // 染色体数
-    drawLine(dnaData, '#4ecdc4'); // DNA数
-    drawLine(chromatidData, '#45b7d1'); // 染色单体数
-    
-    // 添加标题
-    ctx.fillStyle = '#333';
-    ctx.font = '16px "Noto Sans SC", sans-serif';
-    ctx.textAlign = 'center';
-    ctx.fillText('有丝分裂过程中数量变化图 (以2n=4为例)', width / 2, 30);
-    
-    // Y轴标题
-    ctx.save();
-    ctx.translate(20, height / 2);
-    ctx.rotate(-Math.PI / 2);
-    ctx.fillText('数量', 0, 0);
-    ctx.restore();
+  }
+
+  // 绘制三条线
+  drawDataLine(chromosomeData, '#ff6b6b', 0, 0);
+  drawDataLine(dnaData, '#4ecdc4', 0.1, 0.002);
+  drawDataLine(chromatidData, '#45b7d1', -0.1, -0.002, true);
+
+  // 添加图例
+  const legendY = 45;
+  const legendXStart = width / 2 - 150;
+  ctx.fillStyle = '#ff6b6b';
+  ctx.fillRect(legendXStart, legendY - 10, 20, 10);
+  ctx.fillStyle = '#333';
+  ctx.textAlign = 'left';
+  ctx.fillText('染色体', legendXStart + 25, legendY);
+
+  ctx.fillStyle = '#4ecdc4';
+  ctx.fillRect(legendXStart + 100, legendY - 10, 20, 10);
+  ctx.fillStyle = '#333';
+  ctx.fillText('核DNA', legendXStart + 125, legendY);
+
+  ctx.fillStyle = '#45b7d1';
+  ctx.beginPath();
+  ctx.moveTo(legendXStart + 200, legendY - 5);
+  ctx.lineTo(legendXStart + 220, legendY - 5);
+  ctx.strokeStyle = '#45b7d1';
+  ctx.setLineDash([4, 4]);
+  ctx.stroke();
+  ctx.setLineDash([]);
+  ctx.fillStyle = '#333';
+  ctx.fillText('染色单体', legendXStart + 225, legendY);
+
+
+  // 添加标题
+  ctx.fillStyle = '#333';
+  ctx.font = '16px "Noto Sans SC", sans-serif';
+  ctx.textAlign = 'center';
+  ctx.fillText('有丝分裂过程中数量变化图 (以2n=4为例)', width / 2, 30);
+
+  // Y轴标题
+  ctx.save();
+  ctx.translate(20, height / 2);
+  ctx.rotate(-Math.PI / 2);
+  ctx.fillText('数量', 0, 0);
+  ctx.restore();
 }
 
 // 添加交互提示
 function addTooltips() {
-    const tooltipElements = document.querySelectorAll('[data-tooltip]');
-    
-    tooltipElements.forEach(element => {
-        element.addEventListener('mouseenter', function() {
-            this.classList.add('tooltip');
-        });
-        
-        element.addEventListener('mouseleave', function() {
-            this.classList.remove('tooltip');
-        });
+  const tooltipElements = document.querySelectorAll('[data-tooltip]');
+
+  tooltipElements.forEach(element => {
+    element.addEventListener('mouseenter', function () {
+      this.classList.add('tooltip');
     });
+
+    element.addEventListener('mouseleave', function () {
+      this.classList.remove('tooltip');
+    });
+  });
 }
 
 // 添加键盘快捷键支持
-document.addEventListener('keydown', function(event) {
-    if (currentSection === 'simulator') {
-        const phases = ['prophase', 'metaphase', 'anaphase', 'telophase'];
-        const currentIndex = phases.indexOf(currentPhase);
-        
-        switch(event.key) {
-            case 'ArrowLeft':
-                if (currentIndex > 0) {
-                    currentPhase = phases[currentIndex - 1];
-                    document.getElementById('phase').value = currentPhase;
-                    updateSimulation();
-                }
-                break;
-            case 'ArrowRight':
-                if (currentIndex < phases.length - 1) {
-                    currentPhase = phases[currentIndex + 1];
-                    document.getElementById('phase').value = currentPhase;
-                    updateSimulation();
-                }
-                break;
-            case ' ':
-                event.preventDefault();
-                document.getElementById('autoPlay').click();
-                break;
+document.addEventListener('keydown', function (event) {
+  if (currentSection === 'simulator') {
+    const phases = ['prophase', 'metaphase', 'anaphase', 'telophase'];
+    const currentIndex = phases.indexOf(currentPhase);
+
+    switch (event.key) {
+      case 'ArrowLeft':
+        if (currentIndex > 0) {
+          currentPhase = phases[currentIndex - 1];
+          document.getElementById('phase').value = currentPhase;
+          updateSimulation();
         }
+        break;
+      case 'ArrowRight':
+        if (currentIndex < phases.length - 1) {
+          currentPhase = phases[currentIndex + 1];
+          document.getElementById('phase').value = currentPhase;
+          updateSimulation();
+        }
+        break;
+      case ' ':
+        event.preventDefault();
+        document.getElementById('autoPlay').click();
+        break;
     }
+  }
 });
 
 // 页面离开时清理定时器
-window.addEventListener('beforeunload', function() {
-    if (autoPlayInterval) {
-        clearInterval(autoPlayInterval);
-    }
+window.addEventListener('beforeunload', function () {
+  if (autoPlayInterval) {
+    clearInterval(autoPlayInterval);
+  }
 });
