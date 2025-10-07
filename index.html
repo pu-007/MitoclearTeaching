@@ -370,55 +370,48 @@
         </div>
 
         <!-- 数量统计 -->
-        <div class="quantity-stats">
-          <h4>数量统计</h4>
-          <div class="stats-grid">
-            <div class="stat-item">
-              <span class="stat-label">染色体数：</span>
-              <span id="chromosomeCount" class="stat-value">-</span>
+        <div class="main-simulation-wrapper">
+          <div class="quantity-stats">
+            <h4>数量统计</h4>
+            <div class="stats-grid">
+              <div class="stat-item">
+                <span class="stat-label">染色体数：</span>
+                <span id="chromosomeCount" class="stat-value">-</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-label">核DNA分子数：</span>
+                <span id="dnaCount" class="stat-value">-</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-label">染色单体数：</span>
+                <span id="chromatidCount" class="stat-value">-</span>
+              </div>
             </div>
-            <div class="stat-item">
-              <span class="stat-label">DNA分子数：</span>
-              <span id="dnaCount" class="stat-value">-</span>
-            </div>
-            <div class="stat-item">
-              <span class="stat-label">染色单体数：</span>
-              <span id="chromatidCount" class="stat-value">-</span>
+          </div>
+
+          <!-- 模拟显示区域 -->
+          <div class="simulation-area">
+            <div class="cell-display">
+              <div id="cellImage" class="cell-image">
+                <!-- SVG图像将在这里显示 -->
+              </div>
+
+              <div class="bottom-controls">
+                <button id="simPrevStep" class="sim-control-btn" title="上一步">⏮️ 上一步</button>
+                <button id="simAutoPlay" class="sim-control-btn play-btn">
+                  <span id="simPlayIcon">▶️</span>
+                  <span id="simPlayText">播放</span>
+                </button>
+                <button id="simNextStep" class="sim-control-btn" title="下一步">下一步 ⏭️</button>
+              </div>
             </div>
           </div>
         </div>
 
-        <!-- 模拟显示区域 -->
-        <div class="simulation-area">
-          <!-- 播放控制按钮 -->
-          <div class="top-controls">
-            <button id="simAutoPlay" class="sim-control-btn play-btn">
-              <span id="simPlayIcon">▶️</span>
-              <span id="simPlayText">播放</span>
-            </button>
-          </div>
-
-          <div class="cell-display">
-            <!-- 左侧控制按钮 -->
-            <button id="simPrevStep" class="sim-control-btn side-btn left-btn" title="上一步">
-              ⏮️
-            </button>
-
-            <div id="cellImage" class="cell-image">
-              <!-- SVG图像将在这里显示 -->
-            </div>
-
-            <!-- 右侧控制按钮 -->
-            <button id="simNextStep" class="sim-control-btn side-btn right-btn" title="下一步">
-              ⏭️
-            </button>
-          </div>
-
-          <div class="phase-info">
-            <h3 id="phaseTitle">前期 (Prophase)</h3>
-            <div id="phaseDescription" class="phase-description">
-              <!-- 阶段描述将在这里显示 -->
-            </div>
+        <div class="phase-info">
+          <h3 id="phaseTitle">前期 (Prophase)</h3>
+          <div id="phaseDescription" class="phase-description">
+            <!-- 阶段描述将在这里显示 -->
           </div>
         </div>
       </div>
